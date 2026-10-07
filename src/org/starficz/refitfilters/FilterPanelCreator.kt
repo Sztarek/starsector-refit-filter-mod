@@ -1,5 +1,7 @@
 package org.starficz.refitfilters
 
+import com.fs.starfarer.api.Global
+
 import com.fs.starfarer.api.combat.DamageType
 import com.fs.starfarer.api.combat.WeaponAPI
 import com.fs.starfarer.api.loading.FighterWingSpecAPI
@@ -99,6 +101,9 @@ object FilterPanelCreator {
             }
         }
 
+        Global.getLogger(FilterPanelCreator::class.java).info(
+            "RF-WC: $pickerPanelType list has ${sortedSpecPairs.size} items after filtering, " +
+            "${uiElements.size} inner elements, filters index $existingFiltersIndex")
         // add the filter panels if required
         val searchBarFilterPanel =
             innerPanel.createSearchBarFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData)
@@ -165,6 +170,9 @@ object FilterPanelCreator {
 
         if (pickerPanelType == PickerPanelType.Fighters) pickerPanel.width -= 5f
 
+        Global.getLogger(FilterPanelCreator::class.java).info(
+            "RF-WC: picker height $pickerHeight (list $itemsListHeight), screen ${Global.getSettings().screenHeight}, " +
+            "panels: " + activeFilterPanels.joinToString { "${it.height.toInt()}" })
         setPickerPanelHeight(pickerHeight, pickerPanel)
         innerPanel.yAlignOffset = pickerPanel.top - innerPanel.top
 

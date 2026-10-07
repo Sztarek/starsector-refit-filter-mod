@@ -14,6 +14,8 @@ import org.starficz.refitfilters.WeaponFilterData
 
 private class ClassButton(val name: String, val count: Int, var width: Float)
 
+private val log = Global.getLogger(WeaponClasses::class.java)
+
 /**
  * One button per weapon class the player currently owns (cargo + local storage when docked),
  * wrapped over as many rows as needed. Returns null when fewer than two classes are owned,
@@ -32,6 +34,9 @@ fun UIPanelAPI.createWeaponClassFilterPanel(
     filterData.weaponClasses.keys.retainAll(owned.keys)
     for (name in owned.keys) filterData.weaponClasses.getOrPut(name) { Flag() }
 
+    log.info("RF-WC: owned classes = $owned")
+    log.info("RF-WC: flags = " + filterData.weaponClasses.entries.joinToString { "${it.key}=${if (it.value.isEnabled) "on" else "OFF"}" })
+
     if (owned.size < 2) return null
 
     val brightColor = Global.getSettings().basePlayerColor
@@ -40,9 +45,10 @@ fun UIPanelAPI.createWeaponClassFilterPanel(
     val pad = 1f
 
     // measure labels so each button is as wide as its text needs
-    val measure = Global.getSettings().createLabel("", getFontPath(Font.VICTOR_14))
+    val fontPath = getFontPath(Font.VICTOR_14)
     val buttons = owned.map { (name, count) ->
-        ClassButton(name, count, (measure.computeTextWidth(name.uppercase()) + 16f).coerceIn(40f, width))
+        val textWidth = Global.getSettings().computeStringWidth(name.uppercase(), fontPath)
+        ClassButton(name, count, (textWidth + 16f).coerceIn(40f, width))
     }
 
     // wrap into rows that fit the panel width, then stretch each row to fill it
@@ -62,6 +68,9 @@ fun UIPanelAPI.createWeaponClassFilterPanel(
 
     val panelHeight = rows.size * rowHeight + (rows.size - 1) * pad
     val groupingLabel = RFSettings.weaponClassGrouping.lowercase()
+
+    log.info("RF-WC: ${rows.size} row(s), panel height $panelHeight, rows = " +
+            rows.joinToString(" | ") { row -> row.joinToString(", ") { "${it.name}:${it.width.toInt()}" } })
 
     return CustomPanel(width, panelHeight) {
         val classGroup = ButtonGroup()
@@ -87,7 +96,10 @@ fun UIPanelAPI.createWeaponClassFilterPanel(
                         addPara("Click to show only this class, Shift/Ctrl + Click to toggle it. " +
                                 "These buttons are rebuilt from the weapons you own.", 0f)
                     }
-                    onClick { PickerPanelHelpers.filtersChanged(pickerPanel) }
+                    onClick {
+                        log.info("RF-WC: clicked '${button.name}' (row $rowIndex, index $index)")
+                        PickerPanelHelpers.filtersChanged(pickerPanel)
+                    }
                 }
                 if (index == 0) rowStart = created
             }
