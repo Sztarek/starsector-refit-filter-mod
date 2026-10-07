@@ -57,6 +57,5 @@ by the code licenses.
 
 ## AI disclosure
 
-The Weapon Class filter in this fork was written with the help of an AI coding assistant (Claude, by
-Anthropic). The design, direction, review and in-game testing are by Norberto. Starficz's original code
-was not written with AI.
+The Weapon Class filter in this fork was vibe coded: I (Norberto) described what I wanted, an AI coding assistant
+(Claude, by Anthropic) wrote the code, and I tested it in-game. Starficz's original code was not written with AI.
