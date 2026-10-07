@@ -8,6 +8,9 @@ import org.starficz.UIFramework.ReflectionUtils.get
 import org.starficz.UIFramework.ReflectionUtils.getFieldsMatching
 import org.starficz.UIFramework.ReflectionUtils.invoke
 
+/** Result of sorting/filtering a picker list: the pairs put back into the list, and every spec that was in it. */
+class FilterResult<T>(val shown: List<Pair<Any, T>>, val all: List<T>)
+
 object PickerPanelHelpers {
     fun filtersChanged(pickerPanel: UIPanelAPI){
         pickerPanel.invoke("notifyFilterChanged")
@@ -44,7 +47,7 @@ object PickerPanelHelpers {
         comparator: Comparator<Pair<Any, T>>,
         searchTerm: String,
         searchBehaviour: String // e.g., "Filter", "SortAndFilter", etc.
-    ): List<Pair<Any, T>> {
+    ): FilterResult<T> {
         val individualItems = uiList.invoke("getItems") as List<*>
 
         val specPairs: List<Pair<Any, T>> = individualItems.mapNotNull { item ->
@@ -63,6 +66,6 @@ object PickerPanelHelpers {
             uiList.invoke("addItem", pair.first)
         }
 
-        return processedSpecPairs
+        return FilterResult(processedSpecPairs, specPairs.map { it.second })
     }
 }

@@ -2,6 +2,7 @@ package org.starficz.refitfilters
 
 import com.fs.starfarer.api.Global
 import com.fs.starfarer.api.campaign.CargoAPI
+import com.fs.starfarer.api.campaign.econ.MarketAPI
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets
 import com.fs.starfarer.api.loading.WeaponSpecAPI
 import java.util.TreeMap
@@ -20,6 +21,8 @@ object WeaponClasses {
 
     private const val VANILLA_NAME = "Starsector"
 
+    private val log = Global.getLogger(WeaponClasses::class.java)
+
     fun classOf(spec: WeaponSpecAPI): String {
         return when (RFSettings.weaponClassGrouping) {
             GROUP_WEAPON_TYPE -> spec.type?.displayName ?: "Other"
@@ -33,8 +36,21 @@ object WeaponClasses {
     /** Class name -> number of owned weapons of that class, sorted by name (case-insensitive). */
     fun ownedWeaponCounts(): Map<String, Int> {
         val counts = TreeMap<String, Int>(String.CASE_INSENSITIVE_ORDER)
-        addCargo(Global.getSector()?.playerFleet?.cargo, counts)
-        addCargo(dockedStorageCargo(), counts)
+
+        val fleetCargo = Global.getSector()?.playerFleet?.cargo
+        log.info("RF-WC: fleet cargo weapon stacks = ${fleetCargo?.weapons?.size ?: "no fleet"}")
+        addCargo(fleetCargo, counts)
+
+        val market = dockedMarket()
+        if (market == null) {
+            log.info("RF-WC: not docked (no interaction dialog with a market), storage skipped")
+        } else {
+            val storage = market.getSubmarket(Submarkets.SUBMARKET_STORAGE)
+            val storageCargo = storage?.cargoNullOk
+            log.info("RF-WC: docked at '${market.name}', storage submarket = ${storage != null}, " +
+                    "storage weapon stacks = ${storageCargo?.weapons?.size ?: "none"}")
+            addCargo(storageCargo, counts)
+        }
         return counts
     }
 
@@ -47,9 +63,13 @@ object WeaponClasses {
         }
     }
 
+    /** The market the player is currently docked at, or null when not docked. */
+    fun dockedMarket(): MarketAPI? {
+        return Global.getSector()?.campaignUI?.currentInteractionDialog?.interactionTarget?.market
+    }
+
     /** Storage cargo of the market the player is currently docked at, or null when not applicable. */
     fun dockedStorageCargo(): CargoAPI? {
-        val market = Global.getSector()?.campaignUI?.currentInteractionDialog?.interactionTarget?.market ?: return null
-        return market.getSubmarket(Submarkets.SUBMARKET_STORAGE)?.cargoNullOk
+        return dockedMarket()?.getSubmarket(Submarkets.SUBMARKET_STORAGE)?.cargoNullOk
     }
 }

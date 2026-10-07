@@ -74,7 +74,7 @@ object FilterPanelCreator {
         var noItems = uiElements.getOrNull(existingFiltersIndex+2)
 
         // sort list after we have found it
-        val sortedSpecPairs = when(pickerPanelType){
+        val filterResult = when(pickerPanelType){
             PickerPanelType.Weapons -> {
                 val searchString = weaponFilterData.currentSearch
                 val comparator: Comparator<Pair<Any, WeaponSpecAPI>> = compareByDescending { (_, spec) ->
@@ -101,6 +101,7 @@ object FilterPanelCreator {
             }
         }
 
+        val sortedSpecPairs = filterResult.shown
         Global.getLogger(FilterPanelCreator::class.java).info(
             "RF-WC: $pickerPanelType list has ${sortedSpecPairs.size} items after filtering, " +
             "${uiElements.size} inner elements, filters index $existingFiltersIndex")
@@ -110,7 +111,8 @@ object FilterPanelCreator {
         val weaponTypesFilterPanel = if(RFSettings.WeaponTypePanelOrder != 0 && filterData is WeaponFilterData)
             innerPanel.createWeaponTypesFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData) else null
         val weaponClassFilterPanel = if(RFSettings.WeaponClassPanelOrder != 0 && filterData is WeaponFilterData)
-            innerPanel.createWeaponClassFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData) else null
+            innerPanel.createWeaponClassFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData,
+                filterResult.all.filterIsInstance<WeaponSpecAPI>()) else null
         val damageTypeRangeSliderFilterPanel = if(RFSettings.DamageTypeRangeSliderOrder != 0)
             innerPanel.createDamageTypeRangeSliderFilterPanel( rowWidth, filterRowHeight, pickerPanel, filterData) else null
 
