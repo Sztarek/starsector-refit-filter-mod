@@ -2,7 +2,8 @@
 - Added a Weapon Class filter row. Buttons are built dynamically from the weapons you own: fleet cargo, plus local storage when docked.
 - Class grouping is configurable in LunaLib settings: Design Type (default, falls back to source mod), Weapon Type, or Source Mod.
 - Filter panel order settings now go up to 5; the Weapon Class row defaults to position 5 (0 disables it).
-- Removed the upstream version-checker file so this fork is not reported as outdated.
+- Version checker now points at this fork.
+- Included the full LGPL-3.0 and GPL-3.0 license texts for the bundled UI framework, and an AI disclosure (see LICENSE / README).
 
 ## Version 3.1.3
 - Fixed memory leak

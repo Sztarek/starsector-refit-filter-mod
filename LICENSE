@@ -1,2 +1,13 @@
+Refit Filters (Weapon Class) is a fork of Refit Filters by Starficz.
+
+Upstream license notice (unchanged):
 All Code under org.starficz.refitfilters is marked with CC0-1.0. To view a copy of this license, visit https://creativecommons.org/publicdomain/zero/1.0/
 All Code under org.starficz.UIFramework is marked with LGPL-3.0-only. To view a copy of this license, see https://www.gnu.org/licenses/lgpl-3.0.html
+
+This fork:
+- The Weapon Class filter added by this fork (also under org.starficz.refitfilters) is released under CC0-1.0, the same terms as the code it extends.
+- The code under org.starficz.UIFramework is redistributed unmodified under LGPL-3.0-only. Full license texts are included as LICENSE-LGPL-3.0.txt and LICENSE-GPL-3.0.txt, and the complete source is in the src folder and at https://github.com/Sztarek/starsector-refit-filter-mod
+- The mod icon (icon.ico) and the settings icon (graphics/icons/refit_filters_luna_icon.png) are Starficz's artwork and are not covered by the code licenses above.
+
+AI disclosure:
+The Weapon Class filter in this fork was written with the help of an AI coding assistant (Claude, by Anthropic), directed, reviewed and tested in-game by Norberto. Starficz's original code was not written with AI.
