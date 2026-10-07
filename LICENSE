@@ -10,4 +10,4 @@ This fork:
 - The mod icon (icon.ico) and the settings icon (graphics/icons/refit_filters_luna_icon.png) are Starficz's artwork and are not covered by the code licenses above.
 
 AI disclosure:
-The Weapon Class filter in this fork was vibe coded: Norberto described what he wanted, an AI coding assistant (Claude, by Anthropic) wrote the code, and Norberto tested it in-game. Starficz's original code was not written with AI.
+The Weapon Class filter in this fork was vibe coded: Norberto described the feature, an AI coding assistant (Claude, by Anthropic) wrote the code, and Norberto tested it in-game. Starficz's original code was not written with AI.
