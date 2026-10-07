@@ -11,6 +11,8 @@ import org.starficz.UIFramework.ReflectionUtils.invoke
 class CombatUIAdderScript : BaseEveryFrameCombatPlugin() {
 
     override fun advance(amount: Float, events: MutableList<InputEventAPI>?) {
+        if (ConflictGuard.upstreamEnabled) return
+
         val state = AppDriver.getInstance().currentState
         if (state !is TitleScreenState) return
 

@@ -4,7 +4,7 @@ import lunalib.lunaSettings.LunaSettings
 import lunalib.lunaSettings.LunaSettingsListener
 
 object RFSettings : LunaSettingsListener {
-    var modID = "refitfilters"
+    var modID = "refitfilters_weaponclass"
 
     var searchBarBehaviour = LunaSettings.getString(modID, "refitfilters_searchbarBehaviour")!!
     var searchByDesignType = LunaSettings.getBoolean(modID, "refitfilters_searchByDesignType")!!

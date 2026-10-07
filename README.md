@@ -33,8 +33,8 @@ The row's position (1 to 5, or 0 to disable) is on the mod's LunaLib settings pa
 
 Extract the zip into your `mods` folder and enable the mod in the launcher or your mod manager.
 
-This fork uses the same mod id as Refit Filters (`refitfilters`), so it is a drop-in replacement:
-enable one or the other, not both. Safe to add to or remove from an existing save.
+This fork replaces Refit Filters: enable one or the other, not both. If both are enabled, the fork
+detects it, does nothing, and says so in the log. Safe to add to or remove from an existing save.
 
 ## Building from source
 
