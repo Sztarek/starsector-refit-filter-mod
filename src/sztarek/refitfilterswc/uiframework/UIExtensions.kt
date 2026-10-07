@@ -1,4 +1,4 @@
-package org.starficz.UIFramework
+package sztarek.refitfilterswc.uiframework
 
 import com.fs.graphics.Sprite
 import com.fs.graphics.util.Fader
@@ -8,9 +8,9 @@ import com.fs.starfarer.api.campaign.CustomUIPanelPlugin
 import com.fs.starfarer.api.ui.*
 import com.fs.starfarer.api.ui.TooltipMakerAPI.TooltipLocation
 import com.fs.starfarer.ui.impl.StandardTooltipV2Expandable
-import org.starficz.UIFramework.ReflectionUtils.getMethodsMatching
-import org.starficz.UIFramework.ReflectionUtils.invoke
-import org.starficz.UIFramework.ReflectionUtils.set
+import sztarek.refitfilterswc.uiframework.ReflectionUtils.getMethodsMatching
+import sztarek.refitfilterswc.uiframework.ReflectionUtils.invoke
+import sztarek.refitfilterswc.uiframework.ReflectionUtils.set
 import java.awt.Color
 
 // UIComponentAPI extensions that expose UIComponent fields/methods

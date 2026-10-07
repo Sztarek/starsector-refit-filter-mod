@@ -5,8 +5,9 @@ All Code under org.starficz.refitfilters is marked with CC0-1.0. To view a copy 
 All Code under org.starficz.UIFramework is marked with LGPL-3.0-only. To view a copy of this license, see https://www.gnu.org/licenses/lgpl-3.0.html
 
 This fork:
-- The Weapon Class filter added by this fork (also under org.starficz.refitfilters) is released under CC0-1.0, the same terms as the code it extends.
-- The code under org.starficz.UIFramework is redistributed unmodified under LGPL-3.0-only. Full license texts are included as LICENSE-LGPL-3.0.txt and LICENSE-GPL-3.0.txt, and the complete source is in the src folder and at https://github.com/Sztarek/starsector-refit-filter-mod
+- In this fork the packages are renamed so the fork can be installed next to the original without class clashes: org.starficz.refitfilters is now sztarek.refitfilterswc, and org.starficz.UIFramework is now sztarek.refitfilterswc.uiframework. The licenses follow the code.
+- The Weapon Class filter added by this fork (under sztarek.refitfilterswc) is released under CC0-1.0, the same terms as the code it extends.
+- The UI framework code (sztarek.refitfilterswc.uiframework) is redistributed under LGPL-3.0-only with one modification: the package rename noted above. Nothing else in it was changed. Full license texts are included as LICENSE-LGPL-3.0.txt and LICENSE-GPL-3.0.txt, and the complete source is in the src folder and at https://github.com/Sztarek/starsector-refit-filter-mod
 - The mod icon (icon.ico) and the settings icon (graphics/icons/refit_filters_luna_icon.png) are Starficz's artwork and are not covered by the code licenses above.
 
 AI disclosure:

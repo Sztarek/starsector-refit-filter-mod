@@ -1,4 +1,4 @@
-package org.starficz.refitfilters.filterpanels
+package sztarek.refitfilterswc.filterpanels
 
 import com.fs.starfarer.api.Global
 import com.fs.starfarer.api.input.InputEventAPI
@@ -12,12 +12,12 @@ import org.lazywizard.lazylib.opengl.ColorUtils.glColor
 import org.lwjgl.input.Keyboard
 import org.lwjgl.input.Mouse
 import org.lwjgl.opengl.GL11
-import org.starficz.UIFramework.*
-import org.starficz.UIFramework.ReflectionUtils.getFieldsMatching
-import org.starficz.UIFramework.ReflectionUtils.getFieldsWithMethodsMatching
-import org.starficz.refitfilters.FilterData
-import org.starficz.refitfilters.PickerPanelHelpers
-import org.starficz.refitfilters.RFSettings
+import sztarek.refitfilterswc.uiframework.*
+import sztarek.refitfilterswc.uiframework.ReflectionUtils.getFieldsMatching
+import sztarek.refitfilterswc.uiframework.ReflectionUtils.getFieldsWithMethodsMatching
+import sztarek.refitfilterswc.FilterData
+import sztarek.refitfilterswc.PickerPanelHelpers
+import sztarek.refitfilterswc.RFSettings
 import java.awt.Toolkit
 import java.awt.datatransfer.DataFlavor
 

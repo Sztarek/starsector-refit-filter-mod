@@ -1,4 +1,4 @@
-package org.starficz.refitfilters
+package sztarek.refitfilterswc
 
 import com.fs.starfarer.api.Global
 
@@ -9,17 +9,17 @@ import com.fs.starfarer.api.loading.WeaponSpecAPI
 import com.fs.starfarer.api.ui.CustomPanelAPI
 import com.fs.starfarer.api.ui.UIPanelAPI
 import com.fs.starfarer.api.util.Misc
-import org.starficz.UIFramework.ReflectionUtils.invoke
-import org.starficz.UIFramework.*
-import org.starficz.UIFramework.ReflectionUtils.getMethodsMatching
-import org.starficz.UIFramework.allChildsWithMethod
-import org.starficz.UIFramework.getChildrenCopy
-import org.starficz.refitfilters.PickerPanelHelpers.setPickerPanelHeight
-import org.starficz.refitfilters.PickerPanelHelpers.sortAndFilterList
-import org.starficz.refitfilters.filterpanels.createDamageTypeRangeSliderFilterPanel
-import org.starficz.refitfilters.filterpanels.createSearchBarFilterPanel
-import org.starficz.refitfilters.filterpanels.createWeaponTypesFilterPanel
-import org.starficz.refitfilters.filterpanels.createWeaponClassFilterPanel
+import sztarek.refitfilterswc.uiframework.ReflectionUtils.invoke
+import sztarek.refitfilterswc.uiframework.*
+import sztarek.refitfilterswc.uiframework.ReflectionUtils.getMethodsMatching
+import sztarek.refitfilterswc.uiframework.allChildsWithMethod
+import sztarek.refitfilterswc.uiframework.getChildrenCopy
+import sztarek.refitfilterswc.PickerPanelHelpers.setPickerPanelHeight
+import sztarek.refitfilterswc.PickerPanelHelpers.sortAndFilterList
+import sztarek.refitfilterswc.filterpanels.createDamageTypeRangeSliderFilterPanel
+import sztarek.refitfilterswc.filterpanels.createSearchBarFilterPanel
+import sztarek.refitfilterswc.filterpanels.createWeaponTypesFilterPanel
+import sztarek.refitfilterswc.filterpanels.createWeaponClassFilterPanel
 import java.util.Comparator
 
 data class PickerPanelOffset(

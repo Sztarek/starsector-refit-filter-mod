@@ -1,11 +1,11 @@
-package org.starficz.refitfilters
+package sztarek.refitfilterswc
 
 import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin
 import com.fs.starfarer.api.input.InputEventAPI
 import com.fs.starfarer.api.ui.UIPanelAPI
 import com.fs.starfarer.title.TitleScreenState
 import com.fs.state.AppDriver
-import org.starficz.UIFramework.ReflectionUtils.invoke
+import sztarek.refitfilterswc.uiframework.ReflectionUtils.invoke
 
 
 class CombatUIAdderScript : BaseEveryFrameCombatPlugin() {

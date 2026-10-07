@@ -1,4 +1,4 @@
-package org.starficz.UIFramework
+package sztarek.refitfilterswc.uiframework
 
 // Custom UIPanelAPI extensions that reflect components made in a ToolTipMakerAPI onto a UIPanel
 internal enum class Font {

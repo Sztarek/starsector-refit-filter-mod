@@ -1,4 +1,4 @@
-package org.starficz.refitfilters
+package sztarek.refitfilterswc
 
 /**
  * https://github.com/android-password-store/sublime-fuzzy

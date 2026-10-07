@@ -51,8 +51,9 @@ command-line Kotlin compiler, using the Kotlin runtime shipped by LazyLib.
 
 ## Credits and license
 
-Refit Filters and its UI framework are by Starficz. Code under `org.starficz.refitfilters` is CC0-1.0,
-code under `org.starficz.UIFramework` is LGPL-3.0-only (full texts in `LICENSE-LGPL-3.0.txt` and
+Refit Filters and its UI framework are by Starficz. The fork renames the packages (`sztarek.refitfilterswc`
+and `sztarek.refitfilterswc.uiframework`) so it can coexist with the original; the licenses follow the code.
+The filter code is CC0-1.0, the UI framework is LGPL-3.0-only (full texts in `LICENSE-LGPL-3.0.txt` and
 `LICENSE-GPL-3.0.txt`); see `LICENSE`. The Weapon Class filter in this fork is released under the same
 terms as the code it extends (CC0-1.0). The two icon images are Starficz's artwork and are not covered
 by the code licenses.

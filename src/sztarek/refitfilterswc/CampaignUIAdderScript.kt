@@ -1,4 +1,4 @@
-package org.starficz.refitfilters
+package sztarek.refitfilterswc
 
 import com.fs.starfarer.api.EveryFrameScript
 import com.fs.starfarer.api.Global
@@ -6,7 +6,7 @@ import com.fs.starfarer.api.campaign.CoreUITabId
 import com.fs.starfarer.api.ui.UIPanelAPI
 import com.fs.starfarer.campaign.CampaignState
 import com.fs.state.AppDriver
-import org.starficz.UIFramework.ReflectionUtils.invoke
+import sztarek.refitfilterswc.uiframework.ReflectionUtils.invoke
 
 
 class CampaignUIAdderScript : EveryFrameScript{

@@ -1,4 +1,4 @@
-package org.starficz.UIFramework
+package sztarek.refitfilterswc.uiframework
 
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles

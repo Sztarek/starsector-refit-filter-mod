@@ -1,12 +1,12 @@
-package org.starficz.refitfilters
+package sztarek.refitfilterswc
 
 import com.fs.starfarer.api.Global
 import com.fs.starfarer.api.ui.UIComponentAPI
 import com.fs.starfarer.api.ui.UIPanelAPI
-import org.starficz.UIFramework.*
-import org.starficz.UIFramework.ReflectionUtils.get
-import org.starficz.UIFramework.ReflectionUtils.getFieldsMatching
-import org.starficz.UIFramework.ReflectionUtils.invoke
+import sztarek.refitfilterswc.uiframework.*
+import sztarek.refitfilterswc.uiframework.ReflectionUtils.get
+import sztarek.refitfilterswc.uiframework.ReflectionUtils.getFieldsMatching
+import sztarek.refitfilterswc.uiframework.ReflectionUtils.invoke
 
 /** Result of sorting/filtering a picker list: the pairs put back into the list, and every spec that was in it. */
 class FilterResult<T>(val shown: List<Pair<Any, T>>, val all: List<T>)

@@ -1,3 +1,6 @@
+## Version 3.2.4-weaponclass (fork)
+- Fixed: with both this fork and the original Refit Filters enabled, both stopped working. The fork's classes now live in their own packages (sztarek.refitfilterswc), so the two jars no longer clash and the fork stands down on its own as intended.
+
 ## Version 3.2.3-weaponclass (fork)
 - Removed the Weapon Type grouping (Ballistic / Energy / Missile): the vanilla slot filter already covers it. Groupings are now Design Type and Source Mod.
 

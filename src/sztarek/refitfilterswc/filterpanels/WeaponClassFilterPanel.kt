@@ -1,4 +1,4 @@
-package org.starficz.refitfilters.filterpanels
+package sztarek.refitfilterswc.filterpanels
 
 import com.fs.starfarer.api.Global
 import com.fs.starfarer.api.loading.WeaponSpecAPI
@@ -7,10 +7,10 @@ import com.fs.starfarer.api.ui.CustomPanelAPI
 import com.fs.starfarer.api.ui.TooltipMakerAPI
 import com.fs.starfarer.api.ui.UIPanelAPI
 import com.fs.starfarer.api.util.Misc
-import org.starficz.UIFramework.*
-import org.starficz.refitfilters.PickerPanelHelpers
-import org.starficz.refitfilters.WeaponClasses
-import org.starficz.refitfilters.WeaponFilterData
+import sztarek.refitfilterswc.uiframework.*
+import sztarek.refitfilterswc.PickerPanelHelpers
+import sztarek.refitfilterswc.WeaponClasses
+import sztarek.refitfilterswc.WeaponFilterData
 import java.util.TreeMap
 
 /** One cell in the row layout: either the grouping switch or a class button. */

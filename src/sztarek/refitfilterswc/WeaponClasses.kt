@@ -1,4 +1,4 @@
-package org.starficz.refitfilters
+package sztarek.refitfilterswc
 
 import com.fs.starfarer.api.Global
 import com.fs.starfarer.api.campaign.CargoAPI

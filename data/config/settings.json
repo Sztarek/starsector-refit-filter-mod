@@ -1,6 +1,6 @@
 {
 	"plugins":{
-		"RefitFiltersWeaponClassCombatHandler":"org.starficz.refitfilters.CombatUIAdderScript"
+		"RefitFiltersWeaponClassCombatHandler":"sztarek.refitfilterswc.CombatUIAdderScript"
 	}
 }
 

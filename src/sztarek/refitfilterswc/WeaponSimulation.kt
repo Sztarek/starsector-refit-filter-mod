@@ -1,14 +1,14 @@
-package org.starficz.refitfilters
+package sztarek.refitfilterswc
 
 import com.fs.starfarer.api.loading.WeaponSpecAPI
 import com.fs.starfarer.api.ui.CustomPanelAPI
 import com.fs.starfarer.api.ui.UIPanelAPI
 import com.fs.starfarer.api.util.Misc
 import com.fs.starfarer.loading.specs.BaseWeaponSpec
-import org.starficz.UIFramework.ReflectionUtils
-import org.starficz.UIFramework.ReflectionUtils.get
-import org.starficz.UIFramework.addPara
-import org.starficz.UIFramework.getChildrenCopy
+import sztarek.refitfilterswc.uiframework.ReflectionUtils
+import sztarek.refitfilterswc.uiframework.ReflectionUtils.get
+import sztarek.refitfilterswc.uiframework.addPara
+import sztarek.refitfilterswc.uiframework.getChildrenCopy
 /*
 fun UIPanelAPI.initWeaponSimulationListener(width: Float, height: Float): CustomPanelAPI {
 

@@ -1,16 +1,16 @@
-package org.starficz.refitfilters.filterpanels
+package sztarek.refitfilterswc.filterpanels
 
 import com.fs.starfarer.api.Global
 import com.fs.starfarer.api.ui.*
 import com.fs.starfarer.api.util.Misc
 import org.lazywizard.lazylib.opengl.ColorUtils.glColor
 import org.lwjgl.opengl.GL11
-import org.starficz.UIFramework.*
-import org.starficz.UIFramework.Font
-import org.starficz.UIFramework.anchorInTopLeftOfParent
-import org.starficz.UIFramework.anchorToPreviousMatchingCenter
-import org.starficz.UIFramework.onClick
-import org.starficz.refitfilters.*
+import sztarek.refitfilterswc.uiframework.*
+import sztarek.refitfilterswc.uiframework.Font
+import sztarek.refitfilterswc.uiframework.anchorInTopLeftOfParent
+import sztarek.refitfilterswc.uiframework.anchorToPreviousMatchingCenter
+import sztarek.refitfilterswc.uiframework.onClick
+import sztarek.refitfilterswc.*
 import java.awt.Color
 import kotlin.math.abs
 import kotlin.math.roundToInt

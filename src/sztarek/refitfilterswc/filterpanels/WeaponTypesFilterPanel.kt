@@ -1,17 +1,17 @@
-package org.starficz.refitfilters.filterpanels
+package sztarek.refitfilterswc.filterpanels
 
 import com.fs.starfarer.api.Global
 import com.fs.starfarer.api.ui.CustomPanelAPI
 import com.fs.starfarer.api.ui.TooltipMakerAPI
 import com.fs.starfarer.api.ui.UIPanelAPI
-import org.starficz.UIFramework.*
-import org.starficz.UIFramework.ButtonGroup
-import org.starficz.UIFramework.Font
-import org.starficz.UIFramework.anchorInTopLeftOfParent
-import org.starficz.UIFramework.anchorRightOfPreviousMatchingMid
-import org.starficz.UIFramework.onClick
-import org.starficz.refitfilters.PickerPanelHelpers
-import org.starficz.refitfilters.WeaponFilterData
+import sztarek.refitfilterswc.uiframework.*
+import sztarek.refitfilterswc.uiframework.ButtonGroup
+import sztarek.refitfilterswc.uiframework.Font
+import sztarek.refitfilterswc.uiframework.anchorInTopLeftOfParent
+import sztarek.refitfilterswc.uiframework.anchorRightOfPreviousMatchingMid
+import sztarek.refitfilterswc.uiframework.onClick
+import sztarek.refitfilterswc.PickerPanelHelpers
+import sztarek.refitfilterswc.WeaponFilterData
 
 
 fun UIPanelAPI.createWeaponTypesFilterPanel(

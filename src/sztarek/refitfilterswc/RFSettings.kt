@@ -1,4 +1,4 @@
-package org.starficz.refitfilters
+package sztarek.refitfilterswc
 
 import lunalib.lunaSettings.LunaSettings
 import lunalib.lunaSettings.LunaSettingsListener

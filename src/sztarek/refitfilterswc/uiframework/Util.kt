@@ -1,4 +1,4 @@
-package org.starficz.UIFramework
+package sztarek.refitfilterswc.uiframework
 
 import com.fs.starfarer.api.Global
 import org.lwjgl.opengl.GL11

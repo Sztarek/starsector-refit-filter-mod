@@ -1,6 +1,6 @@
-package org.starficz.refitfilters
+package sztarek.refitfilterswc
 
-import org.starficz.UIFramework.Flag
+import sztarek.refitfilterswc.uiframework.Flag
 
 abstract class FilterData(
     var kineticDamage: Flag = Flag(),
