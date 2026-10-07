@@ -1,3 +1,6 @@
+## Version 3.2.3-weaponclass (fork)
+- Removed the Weapon Type grouping (Ballistic / Energy / Missile): the vanilla slot filter already covers it. Groupings are now Design Type and Source Mod.
+
 ## Version 3.2.2-weaponclass (fork)
 - The fork now has its own mod id (refitfilters_weaponclass) instead of reusing the id of Refit Filters. If the original Refit Filters is enabled alongside it, the fork does nothing and logs a warning.
 - LunaLib settings for the fork live under the new id; the row position setting resets to its default once.

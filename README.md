@@ -18,7 +18,6 @@ The first button of the row switches what counts as a class, and the choice is r
 | Grouping | Meaning |
 | --- | --- |
 | **Design Type** (default) | The weapon's design type / manufacturer. A weapon with no design type falls back to the mod it comes from. |
-| Weapon Type | Ballistic, Energy or Missile. |
 | Source Mod | The mod the weapon comes from. |
 
 The row's position (1 to 5, or 0 to disable) is on the mod's LunaLib settings page.

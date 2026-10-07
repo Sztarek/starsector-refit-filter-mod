@@ -20,9 +20,8 @@ import java.util.TreeMap
  */
 object WeaponClasses {
     const val GROUP_DESIGN_TYPE = "Design Type"
-    const val GROUP_WEAPON_TYPE = "Weapon Type"
     const val GROUP_SOURCE_MOD = "Source Mod"
-    val GROUPINGS = listOf(GROUP_DESIGN_TYPE, GROUP_WEAPON_TYPE, GROUP_SOURCE_MOD)
+    val GROUPINGS = listOf(GROUP_DESIGN_TYPE, GROUP_SOURCE_MOD)
 
     private const val VANILLA_NAME = "Starsector"
     private const val PREFS_FILE = "refitfilters_weaponclass.json"
@@ -70,7 +69,6 @@ object WeaponClasses {
 
     fun classOf(spec: WeaponSpecAPI): String {
         return when (grouping) {
-            GROUP_WEAPON_TYPE -> spec.type?.displayName ?: "Other"
             GROUP_SOURCE_MOD -> sourceModName(spec)
             else -> spec.manufacturer?.trim()?.takeIf { it.isNotEmpty() } ?: sourceModName(spec)
         }

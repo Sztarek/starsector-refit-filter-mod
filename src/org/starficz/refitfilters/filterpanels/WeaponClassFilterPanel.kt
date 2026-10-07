@@ -107,7 +107,6 @@ fun UIPanelAPI.createWeaponClassFilterPanel(
                             for (option in WeaponClasses.GROUPINGS) {
                                 val mark = if (option == grouping) "[x]" else "[ ]"
                                 val what = when (option) {
-                                    WeaponClasses.GROUP_WEAPON_TYPE -> "Ballistic, Energy or Missile."
                                     WeaponClasses.GROUP_SOURCE_MOD -> "The mod the weapon comes from."
                                     else -> "Design type / manufacturer, falling back to the mod it comes from."
                                 }
