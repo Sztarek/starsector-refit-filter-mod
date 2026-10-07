@@ -1,3 +1,6 @@
+## Version 3.2.1-weaponclass (fork)
+- The grouping switch (Design Type / Weapon Type / Source Mod) moved from the LunaLib settings page into the filter row itself. The choice is remembered in saves/common.
+
 ## Version 3.2.0-weaponclass (fork)
 - Added a Weapon Class filter row. Buttons are built dynamically from the weapons you own: fleet cargo, plus local storage when docked.
 - Class grouping is configurable in LunaLib settings: Design Type (default, falls back to source mod), Weapon Type, or Source Mod.

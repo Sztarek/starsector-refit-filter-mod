@@ -13,12 +13,15 @@ It keeps everything the original does and adds one more filter row to the refit 
 - The row hides itself when fewer than two classes are known, since there would be nothing to filter between.
 - Hover a button to see how many of that class are in the list and how many you own.
 
-Grouping is configurable on the mod's LunaLib settings page:
+The first button of the row switches what counts as a class, and the choice is remembered across sessions:
 
-| Setting | Options |
+| Grouping | Meaning |
 | --- | --- |
-| Weapon Class Grouping | **Design Type** (default; a weapon with no design type falls back to the mod it comes from), Weapon Type (Ballistic / Energy / Missile), Source Mod |
-| Weapon Class Filter Location | 1 to 5 for the row position, 0 to disable |
+| **Design Type** (default) | The weapon's design type / manufacturer. A weapon with no design type falls back to the mod it comes from. |
+| Weapon Type | Ballistic, Energy or Missile. |
+| Source Mod | The mod the weapon comes from. |
+
+The row's position (1 to 5, or 0 to disable) is on the mod's LunaLib settings page.
 
 ## Requirements
 
