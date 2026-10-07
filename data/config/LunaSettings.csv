@@ -11,12 +11,7 @@ refitfilters_resetButtonSearchBarPanelOrder,Reset Button/Search Bar Filter Locat
 refitfilters_vanillaWeaponAvailabilityWeaponSlotPanelOrder,Availability/Weapon Slot Filter Location,Int,2,,"Location of the vanilla Weapon Availability/Weapon Slot filter Panel, 1 being the top, 5 at the bottom.",1,5,
 refitfilters_weaponTypePanelOrder,Weapon Type Filter Location,Int,3,,"Location of the Weapon Type filter Panel, 1 being the top, 5 at the bottom. 0 to disable.",0,5,
 refitfilters_damageTypeRangeSliderOrder,Damage Type/Range Slider Filter Location,Int,4,,"Location of the Damage Type/Range Slider filter Panel, 1 being the top, 5 at the bottom. 0 to disable.",0,5,
-refitfilters_weaponClassPanelOrder,Weapon Class Filter Location,Int,5,,"Location of the Weapon Class filter Panel, 1 being the top, 5 at the bottom. 0 to disable. Its buttons are built from the weapon classes you currently own: fleet cargo plus local storage when docked.",0,5,
-refitfilters_weaponClassGrouping,Weapon Class Grouping,Radio,"Design Type","Design Type, Weapon Type, Source Mod","What counts as the class of a weapon.
-
-[Design Type] - The design type / manufacturer of the weapon, falling back to the mod it comes from.
-[Weapon Type] - Ballistic, Energy or Missile.
-[Source Mod] - The mod the weapon comes from.",,,
+refitfilters_weaponClassPanelOrder,Weapon Class Filter Location,Int,5,,"Location of the Weapon Class filter Panel, 1 being the top, 5 at the bottom. 0 to disable. Its buttons are built from the weapon classes you currently own: fleet cargo plus local storage when docked. What counts as a class is switched with the first button of the row.",0,5,
 ,,,,,,,,
 refitfilters_weaponRangeslider_header,Weapon Range Slider,Header,Weapon Range Slider,,,,,
 refitfilters_weaponMinRange,Range Slider Min Range,Int,0,,"The lower end of the range slider. Setting the range slider to this value includes all lower ranges.",0,99000,
