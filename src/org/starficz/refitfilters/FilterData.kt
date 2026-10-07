@@ -35,6 +35,13 @@ class WeaponFilterData: FilterData(
     var ammoWeapons: Flag = Flag()
     var nonAmmoWeapons: Flag = Flag()
 
+    /** Weapon class name -> flag. Entries are created on demand from the classes the player owns. */
+    val weaponClasses: MutableMap<String, Flag> = LinkedHashMap()
+
+    /** True when at least one weapon class is currently filtered out. */
+    val anyWeaponClassFiltered: Boolean
+        get() = weaponClasses.values.any { it.isFiltered }
+
     override fun reset() {
         resetCommonFields(RFSettings.weaponMinRange.toFloat(), RFSettings.weaponMaxRange.toFloat())
         projectileWeapons = Flag()
@@ -43,6 +50,7 @@ class WeaponFilterData: FilterData(
         nonpdWeapons = Flag()
         ammoWeapons = Flag()
         nonAmmoWeapons = Flag()
+        weaponClasses.clear()
     }
 }
 
@@ -63,4 +71,3 @@ class FighterFilterData: FilterData(
         interceptorWing = Flag()
     }
 }
-

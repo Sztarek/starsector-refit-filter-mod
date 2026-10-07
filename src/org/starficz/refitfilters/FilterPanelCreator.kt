@@ -17,6 +17,7 @@ import org.starficz.refitfilters.PickerPanelHelpers.sortAndFilterList
 import org.starficz.refitfilters.filterpanels.createDamageTypeRangeSliderFilterPanel
 import org.starficz.refitfilters.filterpanels.createSearchBarFilterPanel
 import org.starficz.refitfilters.filterpanels.createWeaponTypesFilterPanel
+import org.starficz.refitfilters.filterpanels.createWeaponClassFilterPanel
 import java.util.Comparator
 
 data class PickerPanelOffset(
@@ -103,6 +104,8 @@ object FilterPanelCreator {
             innerPanel.createSearchBarFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData)
         val weaponTypesFilterPanel = if(RFSettings.WeaponTypePanelOrder != 0 && filterData is WeaponFilterData)
             innerPanel.createWeaponTypesFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData) else null
+        val weaponClassFilterPanel = if(RFSettings.WeaponClassPanelOrder != 0 && filterData is WeaponFilterData)
+            innerPanel.createWeaponClassFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData) else null
         val damageTypeRangeSliderFilterPanel = if(RFSettings.DamageTypeRangeSliderOrder != 0)
             innerPanel.createDamageTypeRangeSliderFilterPanel( rowWidth, filterRowHeight, pickerPanel, filterData) else null
 
@@ -121,6 +124,7 @@ object FilterPanelCreator {
             searchBarFilterPanel to RFSettings.ResetButtonSearchBarPanelOrder,
             existingFilters to RFSettings.VanillaWeaponAvailabilityWeaponSlotPanelOrder,
             weaponTypesFilterPanel?.let { it to RFSettings.WeaponTypePanelOrder }, // Only add if non-null
+            weaponClassFilterPanel?.let { it to RFSettings.WeaponClassPanelOrder }, // Only add if non-null
             damageTypeRangeSliderFilterPanel?.let { it to RFSettings.DamageTypeRangeSliderOrder } // Only add if non-null
         ).filter { (_, order) -> order != 0 }.sortedBy { (_, order) -> order }.map { (panel, _) -> panel }
 
@@ -187,6 +191,11 @@ object FilterPanelCreator {
 
             if (weaponSpec.usesAmmo() && ammoWeapons.isFiltered) return true
             if (!weaponSpec.usesAmmo() && nonAmmoWeapons.isFiltered) return true
+
+            if (anyWeaponClassFiltered) {
+                val classFlag = weaponClasses[WeaponClasses.classOf(weaponSpec)]
+                if (classFlag == null || classFlag.isFiltered) return true
+            }
 
             if (weaponSpec.maxRange < lowerRange && lowerRange.toInt() != RFSettings.weaponMinRange) return true
             if (weaponSpec.maxRange > upperRange && upperRange.toInt() != RFSettings.weaponMaxRange) return true

@@ -7,10 +7,16 @@ refitfilters_searchbarBehaviour,Searchbar behaviour,Radio,"Sort & Filter","Sort,
 [Filter] - Remove entries that do not match the prompt enough.
 [Sort & Filter] - Combined behaviour of the above.",,,
 refitfilters_searchByDesignType,Filter Search by Design Type,Boolean,true,,Enables the search bar to also filter by design type/mod name in addition to weapon name.,,,
-refitfilters_resetButtonSearchBarPanelOrder,Reset Button/Search Bar Filter Location,Int,1,,"Location of the Reset Button/Search Bar Filter Panel, 1 being the top, 4 at the bottom.",1,4,
-refitfilters_vanillaWeaponAvailabilityWeaponSlotPanelOrder,Availability/Weapon Slot Filter Location,Int,2,,"Location of the vanilla Weapon Availability/Weapon Slot filter Panel, 1 being the top, 4 at the bottom.",1,4,
-refitfilters_weaponTypePanelOrder,Weapon Type Filter Location,Int,3,,"Location of the Weapon Type filter Panel, 1 being the top, 4 at the bottom. 0 to disable.",0,4,
-refitfilters_damageTypeRangeSliderOrder,Damage Type/Range Slider Filter Location,Int,4,,"Location of the Damage Type/Range Slider filter Panel, 1 being the top, 4 at the bottom. 0 to disable.",0,4,
+refitfilters_resetButtonSearchBarPanelOrder,Reset Button/Search Bar Filter Location,Int,1,,"Location of the Reset Button/Search Bar Filter Panel, 1 being the top, 5 at the bottom.",1,5,
+refitfilters_vanillaWeaponAvailabilityWeaponSlotPanelOrder,Availability/Weapon Slot Filter Location,Int,2,,"Location of the vanilla Weapon Availability/Weapon Slot filter Panel, 1 being the top, 5 at the bottom.",1,5,
+refitfilters_weaponTypePanelOrder,Weapon Type Filter Location,Int,3,,"Location of the Weapon Type filter Panel, 1 being the top, 5 at the bottom. 0 to disable.",0,5,
+refitfilters_damageTypeRangeSliderOrder,Damage Type/Range Slider Filter Location,Int,4,,"Location of the Damage Type/Range Slider filter Panel, 1 being the top, 5 at the bottom. 0 to disable.",0,5,
+refitfilters_weaponClassPanelOrder,Weapon Class Filter Location,Int,5,,"Location of the Weapon Class filter Panel, 1 being the top, 5 at the bottom. 0 to disable. Its buttons are built from the weapon classes you currently own: fleet cargo plus local storage when docked.",0,5,
+refitfilters_weaponClassGrouping,Weapon Class Grouping,Radio,"Design Type","Design Type, Weapon Type, Source Mod","What counts as the class of a weapon.
+
+[Design Type] - The design type / manufacturer of the weapon, falling back to the mod it comes from.
+[Weapon Type] - Ballistic, Energy or Missile.
+[Source Mod] - The mod the weapon comes from.",,,
 ,,,,,,,,
 refitfilters_weaponRangeslider_header,Weapon Range Slider,Header,Weapon Range Slider,,,,,
 refitfilters_weaponMinRange,Range Slider Min Range,Int,0,,"The lower end of the range slider. Setting the range slider to this value includes all lower ranges.",0,99000,
