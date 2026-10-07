@@ -16,8 +16,6 @@ import java.util.TreeMap
 
 private class ClassButton(val name: String, val owned: Int, val listed: Int, var width: Float)
 
-private val log = Global.getLogger(WeaponClasses::class.java)
-
 /**
  * One button per weapon class, wrapped over as many rows as needed. Classes come from two
  * sources merged together: the weapons the player owns (fleet cargo + local storage when
@@ -48,9 +46,6 @@ fun UIPanelAPI.createWeaponClassFilterPanel(
     filterData.weaponClasses.keys.retainAll(allClasses.keys)
     for (name in allClasses.keys) filterData.weaponClasses.getOrPut(name) { Flag() }
 
-    log.info("RF-WC: owned classes = $owned")
-    log.info("RF-WC: listed classes = $listed")
-    log.info("RF-WC: flags = " + filterData.weaponClasses.entries.joinToString { "${it.key}=${if (it.value.isEnabled) "on" else "OFF"}" })
 
     if (allClasses.size < 2) return null
 
@@ -84,8 +79,6 @@ fun UIPanelAPI.createWeaponClassFilterPanel(
     val panelHeight = rows.size * rowHeight + (rows.size - 1) * pad
     val groupingLabel = RFSettings.weaponClassGrouping.lowercase()
 
-    log.info("RF-WC: ${rows.size} row(s), panel height $panelHeight, rows = " +
-            rows.joinToString(" | ") { row -> row.joinToString(", ") { "${it.name}:${it.width.toInt()}" } })
 
     return CustomPanel(width, panelHeight) {
         val classGroup = ButtonGroup()
@@ -112,10 +105,7 @@ fun UIPanelAPI.createWeaponClassFilterPanel(
                         addPara("Click to show only this class, Shift/Ctrl + Click to toggle it. " +
                                 "These buttons are rebuilt from the weapons you own.", 0f)
                     }
-                    onClick {
-                        log.info("RF-WC: clicked '${button.name}' (row $rowIndex, index $index)")
-                        PickerPanelHelpers.filtersChanged(pickerPanel)
-                    }
+                    onClick { PickerPanelHelpers.filtersChanged(pickerPanel) }
                 }
                 if (index == 0) rowStart = created
             }

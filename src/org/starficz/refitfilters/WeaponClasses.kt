@@ -21,7 +21,6 @@ object WeaponClasses {
 
     private const val VANILLA_NAME = "Starsector"
 
-    private val log = Global.getLogger(WeaponClasses::class.java)
 
     fun classOf(spec: WeaponSpecAPI): String {
         return when (RFSettings.weaponClassGrouping) {
@@ -38,19 +37,9 @@ object WeaponClasses {
         val counts = TreeMap<String, Int>(String.CASE_INSENSITIVE_ORDER)
 
         val fleetCargo = Global.getSector()?.playerFleet?.cargo
-        log.info("RF-WC: fleet cargo weapon stacks = ${fleetCargo?.weapons?.size ?: "no fleet"}")
         addCargo(fleetCargo, counts)
 
-        val market = dockedMarket()
-        if (market == null) {
-            log.info("RF-WC: not docked (no interaction dialog with a market), storage skipped")
-        } else {
-            val storage = market.getSubmarket(Submarkets.SUBMARKET_STORAGE)
-            val storageCargo = storage?.cargoNullOk
-            log.info("RF-WC: docked at '${market.name}', storage submarket = ${storage != null}, " +
-                    "storage weapon stacks = ${storageCargo?.weapons?.size ?: "none"}")
-            addCargo(storageCargo, counts)
-        }
+        addCargo(dockedStorageCargo(), counts)
         return counts
     }
 
