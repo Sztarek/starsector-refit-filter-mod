@@ -1,7 +1,7 @@
 {
     "id": "refitfilters",
     "name": "Refit Filters (Weapon Class)",
-    "author": "Starficz; weapon class filter by Norberto",
+    "author": "Starficz; weapon class filter by Sztarek",
     "utility": "true",
     "version": "3.2.1-weaponclass",
     "description": "Adds additional filters to the refit weapon picker. This fork adds a Weapon Class filter row whose buttons are built from the weapons you own (fleet cargo, plus local storage when docked). Same mod id as Refit Filters: enable one or the other, not both.",
