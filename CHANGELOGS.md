@@ -1,3 +1,7 @@
+## Version 3.2.5-weaponclass (fork)
+- The weapon class row no longer grows without limit. At most a set number of rows are shown (LunaLib setting, default 3); further rows are paged with < > buttons in the header or the mouse wheel over the row.
+- Added a HIDE / SHOW button that collapses the class buttons to the header row. Filters stay active while hidden; the choice is remembered.
+
 ## Version 3.2.4-weaponclass (fork)
 - Fixed: with both this fork and the original Refit Filters enabled, both stopped working. The fork's classes now live in their own packages (sztarek.refitfilterswc), so the two jars no longer clash and the fork stands down on its own as intended.
 

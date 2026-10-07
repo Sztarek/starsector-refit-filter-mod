@@ -12,6 +12,7 @@ refitfilters_vanillaWeaponAvailabilityWeaponSlotPanelOrder,Availability/Weapon S
 refitfilters_weaponTypePanelOrder,Weapon Type Filter Location,Int,3,,"Location of the Weapon Type filter Panel, 1 being the top, 5 at the bottom. 0 to disable.",0,5,
 refitfilters_damageTypeRangeSliderOrder,Damage Type/Range Slider Filter Location,Int,4,,"Location of the Damage Type/Range Slider filter Panel, 1 being the top, 5 at the bottom. 0 to disable.",0,5,
 refitfilters_weaponClassPanelOrder,Weapon Class Filter Location,Int,5,,"Location of the Weapon Class filter Panel, 1 being the top, 5 at the bottom. 0 to disable. Its buttons are built from the weapon classes you currently own: fleet cargo plus local storage when docked. What counts as a class is switched with the first button of the row.",0,5,
+refitfilters_weaponClassMaxRows,Weapon Class Rows Shown,Int,3,,"How many rows of weapon class buttons are shown at once. Further rows are paged: use the < > buttons in the header or the mouse wheel over the row.",1,10,
 ,,,,,,,,
 refitfilters_weaponRangeslider_header,Weapon Range Slider,Header,Weapon Range Slider,,,,,
 refitfilters_weaponMinRange,Range Slider Min Range,Int,0,,"The lower end of the range slider. Setting the range slider to this value includes all lower ranges.",0,99000,

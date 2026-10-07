@@ -38,6 +38,9 @@ class WeaponFilterData: FilterData(
     /** Weapon class name -> flag. Entries are created on demand from the classes the player owns. */
     val weaponClasses: MutableMap<String, Flag> = LinkedHashMap()
 
+    /** Which page of class rows is shown when there are more rows than fit. */
+    var classPage: Int = 0
+
     /** True when at least one weapon class is currently filtered out. */
     val anyWeaponClassFiltered: Boolean
         get() = weaponClasses.values.any { it.isFiltered }
@@ -51,6 +54,7 @@ class WeaponFilterData: FilterData(
         ammoWeapons = Flag()
         nonAmmoWeapons = Flag()
         weaponClasses.clear()
+        classPage = 0
     }
 }
 

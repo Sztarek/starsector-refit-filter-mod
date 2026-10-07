@@ -10,7 +10,9 @@ It keeps everything the original does and adds one more filter row to the refit 
   and from whatever the picker is listing for the slot. Own weapons from three factions, get three buttons.
 - Click a button to show only that class. Shift or Ctrl + click adds another class. Clicking the last
   active button turns the whole row back on. Reset Filters, Ctrl + R and middle mouse reset it like the other rows.
-- The row hides itself when fewer than two classes are known, since there would be nothing to filter between.
+- With many mods the list can get long, so only a few rows are shown at once (3 by default, a LunaLib setting). Further rows
+  are paged with the < > buttons in the header or the mouse wheel over the row. HIDE / SHOW collapses the buttons to the
+  header; filters stay active while hidden.
 - Hover a button to see how many of that class are in the list and how many you own.
 
 The first button of the row switches what counts as a class, and the choice is remembered across sessions:

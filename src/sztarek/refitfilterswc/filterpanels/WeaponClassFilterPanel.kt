@@ -9,19 +9,21 @@ import com.fs.starfarer.api.ui.UIPanelAPI
 import com.fs.starfarer.api.util.Misc
 import sztarek.refitfilterswc.uiframework.*
 import sztarek.refitfilterswc.PickerPanelHelpers
+import sztarek.refitfilterswc.RFSettings
 import sztarek.refitfilterswc.WeaponClasses
 import sztarek.refitfilterswc.WeaponFilterData
 import java.util.TreeMap
+import kotlin.math.max
+import kotlin.math.min
 
-/** One cell in the row layout: either the grouping switch or a class button. */
-private class Cell(val label: String, var width: Float, val className: String? = null, val owned: Int = 0, val listed: Int = 0) {
-    val isGroupingSwitch get() = className == null
-}
+/** One class button in the row layout. */
+private class ClassCell(val name: String, var width: Float, val owned: Int, val listed: Int)
 
 /**
- * A grouping switch followed by one button per weapon class, wrapped over as many rows as
- * needed. Classes come from two sources merged together: the weapons the player owns (fleet
- * cargo + local storage when docked) and whatever the vanilla picker is currently listing.
+ * A header row (hide/show, grouping switch, paging) followed by one button per weapon class,
+ * wrapped into rows. At most [RFSettings.weaponClassMaxRows] rows are shown at once; the rest
+ * are paged with the < > buttons or the mouse wheel. Classes come from the weapons the player
+ * owns (fleet cargo + local storage when docked) merged with whatever the picker is listing.
  * Returns null when no class is known at all.
  */
 fun UIPanelAPI.createWeaponClassFilterPanel(
@@ -59,16 +61,12 @@ fun UIPanelAPI.createWeaponClassFilterPanel(
 
     val grouping = WeaponClasses.grouping
     val groupingLabel = grouping.lowercase()
+    val collapsed = WeaponClasses.collapsed
 
-    // the grouping switch comes first, then one cell per class
-    val cells = mutableListOf(Cell("BY: ${grouping.uppercase()}", measure("BY: ${grouping.uppercase()}")))
+    // wrap the class buttons into rows that fit the panel width, then stretch each row to fill it
+    val rows = mutableListOf<MutableList<ClassCell>>()
     for (name in allClasses.keys) {
-        cells.add(Cell(name.uppercase(), measure(name.uppercase()), name, owned[name] ?: 0, listed[name] ?: 0))
-    }
-
-    // wrap into rows that fit the panel width, then stretch each row to fill it
-    val rows = mutableListOf<MutableList<Cell>>()
-    for (cell in cells) {
+        val cell = ClassCell(name, measure(name.uppercase()), owned[name] ?: 0, listed[name] ?: 0)
         val row = rows.lastOrNull()
         if (row == null || row.sumOf { it.width.toDouble() } + row.size * pad + cell.width > width) {
             rows.add(mutableListOf(cell))
@@ -81,53 +79,109 @@ fun UIPanelAPI.createWeaponClassFilterPanel(
         if (slack > 0f) row.forEach { it.width += slack / row.size }
     }
 
-    val panelHeight = rows.size * rowHeight + (rows.size - 1) * pad
+    val maxRows = max(1, RFSettings.weaponClassMaxRows)
+    val pageCount = max(1, (rows.size + maxRows - 1) / maxRows)
+    filterData.classPage = filterData.classPage.coerceIn(0, pageCount - 1)
 
-    return CustomPanel(width, panelHeight) {
-        val classGroup = ButtonGroup()
-        var rowStart: ButtonAPI? = null
+    // the panel keeps the same height on every page so the picker layout never shifts
+    val visibleRows = if (collapsed) 0 else min(maxRows, rows.size)
+    val panelHeight = rowHeight + visibleRows * (rowHeight + pad)
 
-        rows.forEachIndexed { rowIndex, row ->
-            row.forEachIndexed { index, cell ->
-                val place: ButtonAPI.() -> Unit = {
-                    when {
-                        rowIndex == 0 && index == 0 -> anchorInTopLeftOfParent()
-                        index == 0 -> position.belowLeft(rowStart, pad)
-                        else -> anchorRightOfPreviousMatchingMid(pad)
+    return CustomPanel(width, panelHeight) { plugin ->
+        val panel = this
+        var pendingRender = false
+
+        fun render() {
+            panel.clearChildren()
+            val page = filterData.classPage
+            val selected = filterData.weaponClasses.values.count { it.isEnabled }
+
+            // ---- header row ----
+            val toggleLabel = if (collapsed) "SHOW" else "HIDE"
+            val toggle = AreaCheckbox(toggleLabel, baseColor, bgColor, brightColor, measure(toggleLabel), rowHeight, font = Font.VICTOR_14) {
+                isChecked = true
+                anchorInTopLeftOfParent()
+                Tooltip(TooltipMakerAPI.TooltipLocation.ABOVE, 300f) {
+                    addPara(if (collapsed) "Show the weapon class buttons." else "Hide the weapon class buttons.", 0f)
+                    addPara("Filters stay active while hidden: %s of %s classes selected.", 0f,
+                        Misc.getTextColor(), Misc.getHighlightColor(), selected.toString(), allClasses.size.toString())
+                }
+                onClick {
+                    WeaponClasses.collapsed = !collapsed
+                    isChecked = true
+                    PickerPanelHelpers.filtersChanged(pickerPanel) // height changes, so the picker re-lays out
+                }
+            }
+
+            AreaCheckbox("BY: ${grouping.uppercase()}", baseColor, bgColor, brightColor,
+                measure("BY: ${grouping.uppercase()}"), rowHeight, font = Font.VICTOR_14) {
+                isChecked = true
+                anchorRightOfPreviousMatchingMid(pad)
+                Tooltip(TooltipMakerAPI.TooltipLocation.ABOVE, 320f) {
+                    addPara("What counts as a weapon's class. Click to switch.", 0f)
+                    addSpacer(6f)
+                    for (option in WeaponClasses.GROUPINGS) {
+                        val mark = if (option == grouping) "[x]" else "[ ]"
+                        val what = when (option) {
+                            WeaponClasses.GROUP_SOURCE_MOD -> "The mod the weapon comes from."
+                            else -> "Design type / manufacturer, falling back to the mod it comes from."
+                        }
+                        addPara("$mark $option - $what", 0f, Misc.getTextColor(), Misc.getHighlightColor(), option)
                     }
                 }
+                onClick {
+                    WeaponClasses.cycleGrouping()
+                    filterData.weaponClasses.clear() // class names change with the grouping
+                    filterData.classPage = 0
+                    isChecked = true
+                    PickerPanelHelpers.filtersChanged(pickerPanel)
+                }
+            }
 
-                val created = if (cell.isGroupingSwitch) {
-                    AreaCheckbox(cell.label, baseColor, bgColor, brightColor, cell.width, rowHeight, font = Font.VICTOR_14) {
-                        isChecked = true
-                        place()
-                        Tooltip(TooltipMakerAPI.TooltipLocation.ABOVE, 320f) {
-                            addPara("What counts as a weapon's class. Click to switch.", 0f)
-                            addSpacer(6f)
-                            for (option in WeaponClasses.GROUPINGS) {
-                                val mark = if (option == grouping) "[x]" else "[ ]"
-                                val what = when (option) {
-                                    WeaponClasses.GROUP_SOURCE_MOD -> "The mod the weapon comes from."
-                                    else -> "Design type / manufacturer, falling back to the mod it comes from."
-                                }
-                                addPara("$mark $option - $what", 0f, Misc.getTextColor(), Misc.getHighlightColor(), option)
-                            }
-                        }
-                        onClick {
-                            WeaponClasses.cycleGrouping()
-                            filterData.weaponClasses.clear() // class names change with the grouping
-                            isChecked = true
-                            PickerPanelHelpers.filtersChanged(pickerPanel)
-                        }
+            if (!collapsed && pageCount > 1) {
+                AreaCheckbox("<", baseColor, bgColor, brightColor, 26f, rowHeight, font = Font.VICTOR_14) {
+                    isChecked = true
+                    anchorRightOfPreviousMatchingMid(pad)
+                    Tooltip(TooltipMakerAPI.TooltipLocation.ABOVE, 260f) {
+                        addPara("Previous page of classes. The mouse wheel over this row does the same.", 0f)
                     }
-                } else {
-                    val flag = filterData.weaponClasses[cell.className] ?: Flag()
-                    AreaCheckbox(cell.label, baseColor, bgColor, brightColor, cell.width, rowHeight,
+                    onClick {
+                        isChecked = true
+                        if (filterData.classPage > 0) { filterData.classPage--; pendingRender = true }
+                    }
+                }
+                Text(" ${page + 1}/$pageCount ", font = Font.VICTOR_14, color = brightColor) {
+                    anchorRightOfPreviousMatchingMid(pad + 3f)
+                }
+                AreaCheckbox(">", baseColor, bgColor, brightColor, 26f, rowHeight, font = Font.VICTOR_14) {
+                    isChecked = true
+                    anchorRightOfPreviousMatchingMid(pad + 3f)
+                    Tooltip(TooltipMakerAPI.TooltipLocation.ABOVE, 260f) {
+                        addPara("Next page of classes. The mouse wheel over this row does the same.", 0f)
+                    }
+                    onClick {
+                        isChecked = true
+                        if (filterData.classPage < pageCount - 1) { filterData.classPage++; pendingRender = true }
+                    }
+                }
+            }
+
+            if (collapsed) return
+
+            // ---- class rows for the current page ----
+            val classGroup = ButtonGroup()
+            var rowStart: ButtonAPI = toggle
+            val first = page * maxRows
+            val pageRows = rows.subList(first, min(rows.size, first + maxRows))
+            for (row in pageRows) {
+                row.forEachIndexed { index, cell ->
+                    val flag = filterData.weaponClasses[cell.name] ?: Flag()
+                    val created = AreaCheckbox(cell.name.uppercase(), baseColor, bgColor, brightColor, cell.width, rowHeight,
                         font = Font.VICTOR_14, flag = flag, buttonGroup = classGroup) {
-                        place()
+                        if (index == 0) position.belowLeft(rowStart, pad) else anchorRightOfPreviousMatchingMid(pad)
                         Tooltip(TooltipMakerAPI.TooltipLocation.ABOVE, 300f) {
                             addPara("Show weapons whose $groupingLabel is %s.", 0f,
-                                Misc.getTextColor(), Misc.getHighlightColor(), cell.className!!)
+                                Misc.getTextColor(), Misc.getHighlightColor(), cell.name)
                             addPara("%s in this list, %s owned in cargo and local storage.", 0f,
                                 Misc.getTextColor(), Misc.getHighlightColor(),
                                 cell.listed.toString(), cell.owned.toString())
@@ -136,9 +190,25 @@ fun UIPanelAPI.createWeaponClassFilterPanel(
                         }
                         onClick { PickerPanelHelpers.filtersChanged(pickerPanel) }
                     }
+                    if (index == 0) rowStart = created
                 }
-                if (index == 0) rowStart = created
             }
         }
+
+        // mouse wheel over the panel pages through the classes
+        plugin.onHover { event ->
+            if (event.isMouseScrollEvent && !collapsed && pageCount > 1) {
+                val next = (filterData.classPage + if (event.eventValue > 0) -1 else 1).coerceIn(0, pageCount - 1)
+                if (next != filterData.classPage) { filterData.classPage = next; pendingRender = true }
+                event.consume()
+            }
+        }
+
+        // re-render outside of input handling, which is where vanilla UI changes are safe
+        plugin.advance {
+            if (pendingRender) { pendingRender = false; render() }
+        }
+
+        render()
     }
 }
