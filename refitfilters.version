@@ -1,0 +1,13 @@
+{
+    "directDownloadURL": "https://github.com/Sztarek/starsector-refit-filter-mod/releases/latest/download/RefitFiltersWeaponClass.zip",
+    "changelogURL": "https://raw.githubusercontent.com/Sztarek/starsector-refit-filter-mod/main/CHANGELOGS.md",
+    "masterVersionFile": "https://raw.githubusercontent.com/Sztarek/starsector-refit-filter-mod/main/refitfilters.version",
+    "modName": "Refit Filters (Weapon Class)",
+    "modVersion":
+        {
+            "major": "3",
+            "minor": "2",
+            "patch": "0"
+        },
+    "modThreadId": 0
+}
