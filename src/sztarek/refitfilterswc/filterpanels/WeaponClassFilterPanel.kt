@@ -173,6 +173,13 @@ fun UIPanelAPI.createWeaponClassFilterPanel(
             var rowStart: ButtonAPI = toggle
             val first = page * maxRows
             val pageRows = rows.subList(first, min(rows.size, first + maxRows))
+
+            // A plain click means "only this class", which has to switch off the classes on the
+            // other pages as well, so every off-page flag joins the group before the visible buttons do.
+            val visibleNames = pageRows.flatMap { row -> row.map { it.name } }.toHashSet()
+            for ((name, flag) in filterData.weaponClasses) {
+                if (name !in visibleNames) classGroup.allFlags.add(flag)
+            }
             for (row in pageRows) {
                 row.forEachIndexed { index, cell ->
                     val flag = filterData.weaponClasses[cell.name] ?: Flag()

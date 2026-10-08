@@ -1,3 +1,6 @@
+## Version 3.2.6-weaponclass (fork)
+- Fixed: since 3.2.5 a plain click on a class only switched off the classes on the same page, so weapons from other pages kept showing. A click now means only this class across all pages, as intended.
+
 ## Version 3.2.5-weaponclass (fork)
 - The weapon class row no longer grows without limit. At most a set number of rows are shown (LunaLib setting, default 3); further rows are paged with < > buttons in the header or the mouse wheel over the row.
 - Added a HIDE / SHOW button that collapses the class buttons to the header row. Filters stay active while hidden; the choice is remembered.
