@@ -1,7 +1,6 @@
 package sztarek.refitfilterswc.filterpanels
 
 import com.fs.starfarer.api.Global
-import com.fs.starfarer.api.loading.WeaponSpecAPI
 import com.fs.starfarer.api.ui.ButtonAPI
 import com.fs.starfarer.api.ui.CustomPanelAPI
 import com.fs.starfarer.api.ui.TooltipMakerAPI
@@ -11,7 +10,7 @@ import sztarek.refitfilterswc.uiframework.*
 import sztarek.refitfilterswc.PickerPanelHelpers
 import sztarek.refitfilterswc.RFSettings
 import sztarek.refitfilterswc.WeaponClasses
-import sztarek.refitfilterswc.WeaponFilterData
+import sztarek.refitfilterswc.FilterData
 import java.util.TreeMap
 import kotlin.math.max
 import kotlin.math.min
@@ -23,24 +22,18 @@ private class ClassCell(val name: String, var width: Float, val owned: Int, val 
  * A header row (hide/show, grouping switch, paging) followed by one button per weapon class,
  * wrapped into rows. At most [RFSettings.weaponClassMaxRows] rows are shown at once; the rest
  * are paged with the < > buttons or the mouse wheel. Classes come from the weapons the player
- * owns (fleet cargo + local storage when docked) merged with whatever the picker is listing.
+ * owns (fleet cargo + local storage when docked) merged with whatever the picker is listing;
+ * the caller passes both maps so the same row serves weapons and fighter wings.
  * Returns null when no class is known at all.
  */
 fun UIPanelAPI.createWeaponClassFilterPanel(
     width: Float,
     rowHeight: Float,
     pickerPanel: UIPanelAPI,
-    filterData: WeaponFilterData,
-    listedSpecs: List<WeaponSpecAPI>
+    filterData: FilterData,
+    owned: Map<String, Int>,
+    listed: Map<String, Int>
 ): CustomPanelAPI? {
-
-    val owned = WeaponClasses.ownedWeaponCounts()
-
-    val listed = TreeMap<String, Int>(String.CASE_INSENSITIVE_ORDER)
-    for (spec in listedSpecs) {
-        val name = WeaponClasses.classOf(spec)
-        listed[name] = (listed[name] ?: 0) + 1
-    }
 
     val allClasses = TreeMap<String, Unit>(String.CASE_INSENSITIVE_ORDER)
     owned.keys.forEach { allClasses[it] = Unit }

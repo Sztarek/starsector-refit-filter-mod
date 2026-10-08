@@ -1,3 +1,6 @@
+## Version 3.2.7-weaponclass (fork)
+- The class row now also appears in the fighter wing picker. Wings are classed by the design type of their hull (or the mod they come from), and owned LPCs in cargo and local storage build the buttons.
+
 ## Version 3.2.6-weaponclass (fork)
 - Fixed: since 3.2.5 a plain click on a class only switched off the classes on the same page, so weapons from other pages kept showing. A click now means only this class across all pages, as intended.
 

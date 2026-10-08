@@ -11,6 +11,16 @@ abstract class FilterData(
     var upperRange: Float,
     var currentSearch: String = ""
 ) {
+    /** Class name -> flag (weapon classes or fighter classes). Entries are created on demand from what the player owns. */
+    val weaponClasses: MutableMap<String, Flag> = LinkedHashMap()
+
+    /** Which page of class rows is shown when there are more rows than fit. */
+    var classPage: Int = 0
+
+    /** True when at least one class is currently filtered out. */
+    val anyWeaponClassFiltered: Boolean
+        get() = weaponClasses.values.any { it.isFiltered }
+
     protected fun resetCommonFields(defaultLower: Float, defaultUpper: Float) {
         kineticDamage = Flag()
         heDamage = Flag()
@@ -19,6 +29,8 @@ abstract class FilterData(
         lowerRange = defaultLower
         upperRange = defaultUpper
         currentSearch = ""
+        weaponClasses.clear()
+        classPage = 0
     }
 
     abstract fun reset()
@@ -35,16 +47,6 @@ class WeaponFilterData: FilterData(
     var ammoWeapons: Flag = Flag()
     var nonAmmoWeapons: Flag = Flag()
 
-    /** Weapon class name -> flag. Entries are created on demand from the classes the player owns. */
-    val weaponClasses: MutableMap<String, Flag> = LinkedHashMap()
-
-    /** Which page of class rows is shown when there are more rows than fit. */
-    var classPage: Int = 0
-
-    /** True when at least one weapon class is currently filtered out. */
-    val anyWeaponClassFiltered: Boolean
-        get() = weaponClasses.values.any { it.isFiltered }
-
     override fun reset() {
         resetCommonFields(RFSettings.weaponMinRange.toFloat(), RFSettings.weaponMaxRange.toFloat())
         projectileWeapons = Flag()
@@ -53,8 +55,6 @@ class WeaponFilterData: FilterData(
         nonpdWeapons = Flag()
         ammoWeapons = Flag()
         nonAmmoWeapons = Flag()
-        weaponClasses.clear()
-        classPage = 0
     }
 }
 

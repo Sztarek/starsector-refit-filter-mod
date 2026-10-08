@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global
 import com.fs.starfarer.api.campaign.CargoAPI
 import com.fs.starfarer.api.campaign.econ.MarketAPI
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets
+import com.fs.starfarer.api.loading.FighterWingSpecAPI
 import com.fs.starfarer.api.loading.WeaponSpecAPI
 import org.json.JSONObject
 import java.util.TreeMap
@@ -77,18 +78,44 @@ object WeaponClasses {
 
     private fun sourceModName(spec: WeaponSpecAPI): String = spec.sourceMod?.name ?: VANILLA_NAME
 
+    /** Fighter wings are classed by the design type of their hull, falling back to the mod they come from. */
+    fun classOf(wing: FighterWingSpecAPI): String {
+        val modName = wing.sourceMod?.name ?: VANILLA_NAME
+        return when (grouping) {
+            GROUP_SOURCE_MOD -> modName
+            else -> wing.variant?.hullSpec?.manufacturer?.trim()?.takeIf { it.isNotEmpty() } ?: modName
+        }
+    }
+
     /** Class name -> number of owned weapons of that class, sorted by name (case-insensitive). */
     fun ownedWeaponCounts(): Map<String, Int> {
         val counts = TreeMap<String, Int>(String.CASE_INSENSITIVE_ORDER)
-        addCargo(Global.getSector()?.playerFleet?.cargo, counts)
-        addCargo(dockedStorageCargo(), counts)
+        addWeapons(Global.getSector()?.playerFleet?.cargo, counts)
+        addWeapons(dockedStorageCargo(), counts)
         return counts
     }
 
-    private fun addCargo(cargo: CargoAPI?, counts: MutableMap<String, Int>) {
+    /** Class name -> number of owned fighter wings (LPCs) of that class, sorted by name (case-insensitive). */
+    fun ownedFighterCounts(): Map<String, Int> {
+        val counts = TreeMap<String, Int>(String.CASE_INSENSITIVE_ORDER)
+        addFighters(Global.getSector()?.playerFleet?.cargo, counts)
+        addFighters(dockedStorageCargo(), counts)
+        return counts
+    }
+
+    private fun addWeapons(cargo: CargoAPI?, counts: MutableMap<String, Int>) {
         if (cargo == null) return
         for (quantity in cargo.weapons) {
             val spec = try { Global.getSettings().getWeaponSpec(quantity.item) } catch (e: Exception) { null } ?: continue
+            val name = classOf(spec)
+            counts[name] = (counts[name] ?: 0) + quantity.count
+        }
+    }
+
+    private fun addFighters(cargo: CargoAPI?, counts: MutableMap<String, Int>) {
+        if (cargo == null) return
+        for (quantity in cargo.fighters) {
+            val spec = try { Global.getSettings().getFighterWingSpec(quantity.item) } catch (e: Exception) { null } ?: continue
             val name = classOf(spec)
             counts[name] = (counts[name] ?: 0) + quantity.count
         }

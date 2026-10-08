@@ -107,9 +107,24 @@ object FilterPanelCreator {
             innerPanel.createSearchBarFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData)
         val weaponTypesFilterPanel = if(RFSettings.WeaponTypePanelOrder != 0 && filterData is WeaponFilterData)
             innerPanel.createWeaponTypesFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData) else null
-        val weaponClassFilterPanel = if(RFSettings.WeaponClassPanelOrder != 0 && filterData is WeaponFilterData)
-            innerPanel.createWeaponClassFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData,
-                filterResult.all.filterIsInstance<WeaponSpecAPI>()) else null
+        val weaponClassFilterPanel = if(RFSettings.WeaponClassPanelOrder != 0) {
+            val listed = java.util.TreeMap<String, Int>(String.CASE_INSENSITIVE_ORDER)
+            val owned = when(pickerPanelType) {
+                PickerPanelType.Weapons -> {
+                    for (spec in filterResult.all.filterIsInstance<WeaponSpecAPI>()) {
+                        val name = WeaponClasses.classOf(spec); listed[name] = (listed[name] ?: 0) + 1
+                    }
+                    WeaponClasses.ownedWeaponCounts()
+                }
+                PickerPanelType.Fighters -> {
+                    for (spec in filterResult.all.filterIsInstance<FighterWingSpecAPI>()) {
+                        val name = WeaponClasses.classOf(spec); listed[name] = (listed[name] ?: 0) + 1
+                    }
+                    WeaponClasses.ownedFighterCounts()
+                }
+            }
+            innerPanel.createWeaponClassFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData, owned, listed)
+        } else null
         val damageTypeRangeSliderFilterPanel = if(RFSettings.DamageTypeRangeSliderOrder != 0)
             innerPanel.createDamageTypeRangeSliderFilterPanel( rowWidth, filterRowHeight, pickerPanel, filterData) else null
 
@@ -221,6 +236,11 @@ object FilterPanelCreator {
 
     fun fighterFiltered(fighterSpec: FighterWingSpecAPI, filterData: FighterFilterData): Boolean{
         with(filterData){
+            if (anyWeaponClassFiltered) {
+                val classFlag = weaponClasses[WeaponClasses.classOf(fighterSpec)]
+                if (classFlag == null || classFlag.isFiltered) return true
+            }
+
             if (DamageType.KINETIC in fighterSpec.variant.fittedWeaponSlots.map { fighterSpec.variant.getWeaponSpec(it).damageType }
                 && kineticDamage.isFiltered) return true
             if (DamageType.HIGH_EXPLOSIVE in fighterSpec.variant.fittedWeaponSlots.map { fighterSpec.variant.getWeaponSpec(it).damageType }

@@ -14,6 +14,8 @@ It keeps everything the original does and adds one more filter row to the refit 
   are paged with the < > buttons in the header or the mouse wheel over the row. HIDE / SHOW collapses the buttons to the
   header; filters stay active while hidden.
 - Hover a button to see how many of that class are in the list and how many you own.
+- The same row appears in the fighter wing picker. Wings are classed by the design type of their hull, or the
+  mod they come from, and the buttons are built from the LPCs you own.
 
 The first button of the row switches what counts as a class, and the choice is remembered across sessions:
 
