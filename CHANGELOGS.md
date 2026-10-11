@@ -1,5 +1,5 @@
 ## Version 3.2.8-weaponclass (fork)
-- Added a Weapon Size filter row (Small / Medium / Large) for slots that accept several sizes. Position is a LunaLib setting, 0 disables it.
+- Added a Weapon Size filter row (Small / Medium / Large) for slots that accept several sizes. Off by default; enable it on the LunaLib settings page, where its position is a setting too (default: right after the Weapon Type row).
 - Filter row position settings now go up to 6.
 
 ## Version 3.2.7-weaponclass (fork)

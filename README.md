@@ -29,8 +29,9 @@ The row's position (1 to 5, or 0 to disable) is on the mod's LunaLib settings pa
 ## Weapon Size row
 
 A second addition: a Small / Medium / Large row for slots that accept more than one size, such as a large
-universal mount that also takes small and medium weapons. Same click rules as the other rows. Its position is a
-LunaLib setting, 0 disables it.
+universal mount that also takes small and medium weapons. Same click rules as the other rows. It is off by default:
+switch it on from the LunaLib settings page, where its position is a setting too (default: right after the
+Weapon Type row).
 
 ## Requirements
 

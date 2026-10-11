@@ -108,7 +108,7 @@ object FilterPanelCreator {
             innerPanel.createSearchBarFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData)
         val weaponTypesFilterPanel = if(RFSettings.WeaponTypePanelOrder != 0 && filterData is WeaponFilterData)
             innerPanel.createWeaponTypesFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData) else null
-        val weaponSizeFilterPanel = if(RFSettings.WeaponSizePanelOrder != 0 && filterData is WeaponFilterData)
+        val weaponSizeFilterPanel = if(RFSettings.weaponSizeEnabled && RFSettings.WeaponSizePanelOrder != 0 && filterData is WeaponFilterData)
             innerPanel.createWeaponSizeFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData) else null
         val weaponClassFilterPanel = if(RFSettings.WeaponClassPanelOrder != 0) {
             val listed = java.util.TreeMap<String, Int>(String.CASE_INSENSITIVE_ORDER)
