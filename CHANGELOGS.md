@@ -1,3 +1,7 @@
+## Version 3.2.8-weaponclass (fork)
+- Added a Weapon Size filter row (Small / Medium / Large) for slots that accept several sizes. Position is a LunaLib setting, 0 disables it.
+- Filter row position settings now go up to 6.
+
 ## Version 3.2.7-weaponclass (fork)
 - The class row now also appears in the fighter wing picker. Wings are classed by the design type of their hull (or the mod they come from), and owned LPCs in cargo and local storage build the buttons.
 

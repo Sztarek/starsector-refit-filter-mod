@@ -46,6 +46,9 @@ class WeaponFilterData: FilterData(
     var nonpdWeapons: Flag = Flag()
     var ammoWeapons: Flag = Flag()
     var nonAmmoWeapons: Flag = Flag()
+    var smallWeapons: Flag = Flag()
+    var mediumWeapons: Flag = Flag()
+    var largeWeapons: Flag = Flag()
 
     override fun reset() {
         resetCommonFields(RFSettings.weaponMinRange.toFloat(), RFSettings.weaponMaxRange.toFloat())
@@ -55,6 +58,9 @@ class WeaponFilterData: FilterData(
         nonpdWeapons = Flag()
         ammoWeapons = Flag()
         nonAmmoWeapons = Flag()
+        smallWeapons = Flag()
+        mediumWeapons = Flag()
+        largeWeapons = Flag()
     }
 }
 

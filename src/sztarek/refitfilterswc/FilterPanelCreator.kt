@@ -20,6 +20,7 @@ import sztarek.refitfilterswc.filterpanels.createDamageTypeRangeSliderFilterPane
 import sztarek.refitfilterswc.filterpanels.createSearchBarFilterPanel
 import sztarek.refitfilterswc.filterpanels.createWeaponTypesFilterPanel
 import sztarek.refitfilterswc.filterpanels.createWeaponClassFilterPanel
+import sztarek.refitfilterswc.filterpanels.createWeaponSizeFilterPanel
 import java.util.Comparator
 
 data class PickerPanelOffset(
@@ -107,6 +108,8 @@ object FilterPanelCreator {
             innerPanel.createSearchBarFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData)
         val weaponTypesFilterPanel = if(RFSettings.WeaponTypePanelOrder != 0 && filterData is WeaponFilterData)
             innerPanel.createWeaponTypesFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData) else null
+        val weaponSizeFilterPanel = if(RFSettings.WeaponSizePanelOrder != 0 && filterData is WeaponFilterData)
+            innerPanel.createWeaponSizeFilterPanel(rowWidth, filterRowHeight, pickerPanel, filterData) else null
         val weaponClassFilterPanel = if(RFSettings.WeaponClassPanelOrder != 0) {
             val listed = java.util.TreeMap<String, Int>(String.CASE_INSENSITIVE_ORDER)
             val owned = when(pickerPanelType) {
@@ -143,6 +146,7 @@ object FilterPanelCreator {
             searchBarFilterPanel to RFSettings.ResetButtonSearchBarPanelOrder,
             existingFilters to RFSettings.VanillaWeaponAvailabilityWeaponSlotPanelOrder,
             weaponTypesFilterPanel?.let { it to RFSettings.WeaponTypePanelOrder }, // Only add if non-null
+            weaponSizeFilterPanel?.let { it to RFSettings.WeaponSizePanelOrder }, // Only add if non-null
             weaponClassFilterPanel?.let { it to RFSettings.WeaponClassPanelOrder }, // Only add if non-null
             damageTypeRangeSliderFilterPanel?.let { it to RFSettings.DamageTypeRangeSliderOrder } // Only add if non-null
         ).filter { (_, order) -> order != 0 }.sortedBy { (_, order) -> order }.map { (panel, _) -> panel }
@@ -210,6 +214,10 @@ object FilterPanelCreator {
 
             if (weaponSpec.usesAmmo() && ammoWeapons.isFiltered) return true
             if (!weaponSpec.usesAmmo() && nonAmmoWeapons.isFiltered) return true
+
+            if (weaponSpec.size == WeaponAPI.WeaponSize.SMALL && smallWeapons.isFiltered) return true
+            if (weaponSpec.size == WeaponAPI.WeaponSize.MEDIUM && mediumWeapons.isFiltered) return true
+            if (weaponSpec.size == WeaponAPI.WeaponSize.LARGE && largeWeapons.isFiltered) return true
 
             if (anyWeaponClassFiltered) {
                 val classFlag = weaponClasses[WeaponClasses.classOf(weaponSpec)]
